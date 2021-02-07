@@ -77,6 +77,34 @@ namespace DataAccess.Concrete.EntityFramework
 
 
             }
+
+            /*using (RecapContext context = new RecapContext())
+            {
+                var result = context.Cars
+                    .Include(c => c.Color)
+                    .Include(c => c.Brand)
+                    .Select(c => new CarDetailDto
+                    {
+                        BrandName = c.Brand.BrandName == null ? "Marka yok" : c.Brand.BrandName,
+                        ColorName = c.Color.ColorName == null ? "Renk yok" : c.Color.ColorName,
+                        DailyPrice = c.DailyPrice
+                    }).ToList();
+            }
+
+            using (RecapContext context = new RecapContext())
+            {
+                return (from car in context.Cars
+                        join color in context.Colors on car.ColorId equals color.ColorId into temp
+                        from t in temp.DefaultIfEmpty()
+                        join brand in context.Brands on car.BrandId equals brand.BrandId into temp2
+                        from t2 in temp2.DefaultIfEmpty()
+                        select new CarDetailDto
+                        {
+                            BrandName = t2.BrandName == null ? "Marka yok" : t2.BrandName,
+                            ColorName = t.ColorName == null ? "Renk yok" : t.ColorName,
+                            DailyPrice = car.DailyPrice
+                        }).ToList();
+            }*/
         }
     }
 }
