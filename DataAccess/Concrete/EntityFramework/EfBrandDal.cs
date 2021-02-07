@@ -6,12 +6,13 @@ using System.Linq.Expressions;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using Core.DataAccess.EntityFramework;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    public class EfBrandDal : IBrandDal
+    public class EfBrandDal : EfEntityRepositoryBase<Brand,RecapContext> ,IBrandDal
     {
-        public void Add(Brand entity)
+        /*public void Add(Brand entity)
         {
             using (RecapContext recapContext=new RecapContext())
             {
@@ -55,6 +56,6 @@ namespace DataAccess.Concrete.EntityFramework
                 updatedEntity.State = EntityState.Modified;
                 recapContext.SaveChanges();
             }
-        }
+        }*/
     }
 }

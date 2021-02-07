@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -20,11 +21,11 @@ namespace Business.Concrete
             if (car.DailyPrice > 0)
             {
                 _carDal.Add(car);
-                Console.WriteLine("Araba Başarıyla Eklendi.");
+                Console.WriteLine($"\t Araba Başarıyla Eklendi.");
             }
             else
             {
-                Console.WriteLine("Kiralanacak Gün Sayısı Sıfırdan (0) Büyük Olmalıdır.");
+                Console.WriteLine($"\t Kiralanacak Gün Sayısı Sıfırdan (0) Büyük Olmalıdır.");
             }
             
         }
@@ -53,6 +54,11 @@ namespace Business.Concrete
         public List<Car> GetByModelYear(int year) //İstenilen Model Yılına Göre Listeleme
         {
             return _carDal.GetAll(c => c.ModelYear == year);
+        }
+
+        public List<CarDetailDto> GetCarDetails() // 3 Tablodan Gelen Bilgileri Ekrana Yazdırmak
+        {
+            return _carDal.GetCarDetails();
         }
 
         public List<Car> GetCarsBrandId(int id) //Markasına Göre Sıralama

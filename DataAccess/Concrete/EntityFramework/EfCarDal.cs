@@ -6,12 +6,14 @@ using System.Linq.Expressions;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using Core.DataAccess.EntityFramework;
+using Entities.DTOs;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    public class EfCarDal : ICarDal
+    public class EfCarDal : EfEntityRepositoryBase<Car,RecapContext> , ICarDal
     {
-        public void Add(Car entity)
+        /*public void Add(Car entity)
         {
             using (RecapContext recapContext=new RecapContext())
             {
@@ -54,6 +56,26 @@ namespace DataAccess.Concrete.EntityFramework
                 var updatedEntity = recapContext.Entry(entity);
                 updatedEntity.State = EntityState.Modified;
                 recapContext.SaveChanges();
+            }
+        }*/
+
+        public List<CarDetailDto> GetCarDetails()
+        {
+            using (RecapContext recapContext=new RecapContext())
+            {
+                var result = from c in recapContext.Cars
+                             join b in recapContext.Brands on c.BrandId equals b.BrandId
+                             join co in recapContext.Colors on c.ColorId equals co.ColorId
+                             select new CarDetailDto
+                             {
+                                 CarId = c.CarId,
+                                 BrandName = b.BrandName,
+                                 ColorName = co.ColorName,
+                                 DailyPrice = c.DailyPrice
+                             };
+                return result.ToList();
+
+
             }
         }
     }

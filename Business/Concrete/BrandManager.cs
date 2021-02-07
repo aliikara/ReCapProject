@@ -20,11 +20,11 @@ namespace Business.Concrete
             if (brand.BrandName.Length > 2)
             {
                 _brandDal.Add(brand);
-                Console.WriteLine("Marka Başarıyla Eklendi.");
+                Console.WriteLine($"\t Marka Başarıyla Eklendi.");
             }
             else
             {
-                Console.WriteLine("Marka İsmi İki(2) Karakterden Fazla Olmalıdır.");
+                Console.WriteLine($"\t Marka İsmi İki(2) Karakterden Fazla Olmalıdır.");
             }
         }
 
