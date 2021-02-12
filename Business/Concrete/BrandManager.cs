@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
@@ -15,45 +17,50 @@ namespace Business.Concrete
             _brandDal = brandDal;
         }
         
-        public void Add(Brand brand)
+        public IResult Add(Brand brand)
         {
             if (brand.BrandName.Length > 2)
             {
                 _brandDal.Add(brand);
-                Console.WriteLine($"\t Marka Başarıyla Eklendi.");
+                return new SuccessResult(Messages.BrandAdded);
+                //Console.WriteLine($"\t Marka Başarıyla Eklendi.");
             }
             else
             {
-                Console.WriteLine($"\t Marka İsmi İki(2) Karakterden Fazla Olmalıdır.");
+                return new ErrorResult(Messages.BrandNameInvalid);
+                //Console.WriteLine($"\t Marka İsmi İki(2) Karakterden Fazla Olmalıdır.");
             }
         }
 
-        public void Delete(Brand brand)
+        public IResult Delete(Brand brand)
         {
             _brandDal.Delete(brand);
-            Console.WriteLine("Marka Başarıyla Silindi.");
+            return new SuccessResult(Messages.BrandDeleted);
+            //Console.WriteLine("Marka Başarıyla Silindi.");
         }
 
-        public Brand Get(int id)
+        public IDataResult<Brand> Get(int id)
         {
-            return _brandDal.Get(b => b.BrandId == id);
+            return new SuccessDataResult<Brand>(_brandDal.Get(b => b.BrandId == id));
         }
 
-        public List<Brand> GetAll()
+        public IDataResult<List<Brand>> GetAll()
         {
-            return _brandDal.GetAll();
+            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll());
         }
 
-        public void Update(Brand brand)
+        public IResult Update(Brand brand)
         {
             if (brand.BrandName.Length >=2)
             {
                 _brandDal.Update(brand);
-                Console.WriteLine("Marka Başarıyla Güncellendi.");
+                return new SuccessResult(Messages.BrandUpdated);
+                //Console.WriteLine("Marka Başarıyla Güncellendi.");
             }
             else
             {
-                Console.WriteLine("Marka İsmi İki(2) Karakterden Fazla Olmalıdır.");
+                return new ErrorResult(Messages.BrandErrorUpdated);
+                //Console.WriteLine("Marka İsmi İki(2) Karakterden Fazla Olmalıdır.");
             }
             
         }

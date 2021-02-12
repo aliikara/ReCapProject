@@ -13,8 +13,31 @@ namespace ConsoleUI
             CarManager carManager=new CarManager(new EfCarDal());
             BrandManager brandManager = new BrandManager(new EfBrandDal());
             ColorManager colorManager = new ColorManager(new EfColorDal());
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+            UserManager userManager = new UserManager(new EfUserDal());
 
-            Console.WriteLine("GİRİLEN FİYAT ARALIĞINDAKİ DEĞERLERE GÖRE ARAÇLARI LİSTELER");
+            //userManager.Add(new User {FirstName = "Ali", LastName = "KARA", Email = "info@alikara.com", Password = "123" });
+
+            //rentalManager.Add(new Rental { CarId = 4, CustomerId = 6, RentDate = DateTime.Today, ReturnDate = DateTime.Today.AddDays(2) });
+
+            /*var result = rentalManager.GetRentalDetailDto(4);
+            if (result.Success == true)
+            {
+                foreach (var rentalDetail in result.Data)
+                {
+                    Console.WriteLine(rentalDetail.CarName + " " + rentalDetail.CustomerName + " " + rentalDetail.RentDate + " " + rentalDetail.ReturnDate);
+                }
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }*/
+            var result = rentalManager.Add(new Rental { CarId = 4, CustomerId = 6, RentDate = DateTime.Now});
+            Console.WriteLine(result.Message);
+            
+            #region
+            /*Console.WriteLine("GİRİLEN FİYAT ARALIĞINDAKİ DEĞERLERE GÖRE ARAÇLARI LİSTELER");
             foreach (var car in carManager.GetByDailyPrice(100, 1000))
             {
                 Console.WriteLine($"\t{car.CarId}\t{colorManager.Get(car.ColorId).ColorName}\t\t{brandManager.Get(car.BrandId).BrandName}\t\t{car.ModelYear}\t\t{car.DailyPrice}\t\t{car.Description}");
@@ -45,7 +68,8 @@ namespace ConsoleUI
             foreach (var car in carManager.GetCarDetails())
             {
                 Console.WriteLine($"\t{car.BrandName}\t{car.ColorName}\t{car.DailyPrice}");
-            }
+            }*/
+            #endregion
         }
     }
 }
