@@ -20,14 +20,19 @@ namespace Business.Concrete
 
         public IResult Add(Rental rental)
         {
-            var result = _rentalDal.GetAll(r => r.CarId == rental.CarId);
+            var result = _rentalDal.Get(r => r.CarId == rental.CarId && r.ReturnDate == null);
+            if (result != null)
+            {
+                return new ErrorResult(Messages.RentAddedError);
+            }
+            /*var result = _rentalDal.GetAll(r => r.CarId == rental.CarId);
             for (int i = 0; i < result.Count; i++)
             {
                 if (result[i].ReturnDate==null || result[i].RentDate>result[i].ReturnDate)
                 {
                     return new ErrorResult(Messages.RentAddedError);
                 }
-            }
+            }*/
             _rentalDal.Add(rental);
             return new SuccessResult(Messages.RentSuccess);
         }
