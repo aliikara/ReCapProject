@@ -29,5 +29,7 @@ namespace Business.Constants
         public static string RentSuccess = "Kiralama İşlemi Başarılı";
         public static string ReturnDateNullError = "Araç Kullanımda Kiralanamaz";
         public static string RentAddedError = "Araç Kiralama Hatası";
+
+        public static string CustomerAdded { get; internal set; }
     }
 }
