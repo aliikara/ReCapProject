@@ -11,25 +11,18 @@ namespace Business.Concrete
 {
     public class BrandManager : IBrandService
     {
-         IBrandDal _brandDal;
+        IBrandDal _brandDal;
         public BrandManager(IBrandDal brandDal)
         {
             _brandDal = brandDal;
         }
-        
+
         public IResult Add(Brand brand)
         {
-            if (brand.BrandName.Length > 2)
-            {
-                _brandDal.Add(brand);
-                return new SuccessResult(Messages.BrandAdded);
-                //Console.WriteLine($"\t Marka Başarıyla Eklendi.");
-            }
-            else
-            {
-                return new ErrorResult(Messages.BrandNameInvalid);
-                //Console.WriteLine($"\t Marka İsmi İki(2) Karakterden Fazla Olmalıdır.");
-            }
+            _brandDal.Add(brand);
+            return new SuccessResult(Messages.BrandAdded);
+            //return new ErrorResult(Messages.BrandNameInvalid);
+            //Console.WriteLine($"\t Marka İsmi İki(2) Karakterden Fazla Olmalıdır.")
         }
 
         public IResult Delete(Brand brand)
@@ -51,7 +44,7 @@ namespace Business.Concrete
 
         public IResult Update(Brand brand)
         {
-            if (brand.BrandName.Length >=2)
+            if (brand.BrandName.Length >= 2)
             {
                 _brandDal.Update(brand);
                 return new SuccessResult(Messages.BrandUpdated);
@@ -62,7 +55,7 @@ namespace Business.Concrete
                 return new ErrorResult(Messages.BrandErrorUpdated);
                 //Console.WriteLine("Marka İsmi İki(2) Karakterden Fazla Olmalıdır.");
             }
-            
+
         }
     }
 }
