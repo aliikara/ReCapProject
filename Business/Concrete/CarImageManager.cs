@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace Business.Concrete
+namespace Business.Concrete 
 {
     public class CarImageManager : ICarImageService
     {
