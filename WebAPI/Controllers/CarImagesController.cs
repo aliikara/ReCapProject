@@ -2,11 +2,6 @@
 using Entities.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace WebAPI.Controllers
 {
@@ -24,7 +19,7 @@ namespace WebAPI.Controllers
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
-            var result = _carImageService.GetByAllCarImage();
+            var result = _carImageService.GetByAll();
             if (result.Success)
             {
                 return Ok(result);
@@ -44,9 +39,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("add")]
-        public IActionResult AddImage(CarImage carImage)
+        public IActionResult AddImage([FromForm(Name = ("Image"))] IFormFile file, [FromForm] CarImage carImage)
         {
-            var result =_carImageService.AddImage(carImage);
+            var result =_carImageService.AddImage(carImage,file);
             if (result.Success)
             {
                 return Ok(result);
@@ -55,9 +50,10 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("update")]
-        public IActionResult Update(CarImage carImage)
+        public IActionResult Update([FromForm(Name = ("Image"))] IFormFile file, [FromForm(Name = ("Id"))] int Id)
         {
-            var result = _carImageService.UpdateImage(carImage);
+            var carImage = _carImageService.Get(Id).Data;
+            var result = _carImageService.UpdateImage(carImage,file);
             if (result.Success)
             {
                 return Ok(result);
