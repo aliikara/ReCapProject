@@ -13,7 +13,7 @@ namespace WebAPI.Controllers
     [ApiController]
     public class ColorsController : ControllerBase
     {
-        IColorService _colorService;
+        readonly IColorService _colorService;
 
         public ColorsController(IColorService colorService)
         {
